@@ -10,6 +10,7 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+
 /**
  *
  * @author Cinderella
@@ -19,7 +20,7 @@ public class Calc {
     /** Ім'я файлу, що використовується при серіалізації. */
     private static final String FNAME = "Item2d.bin";
     
-    /** Зберігає результат обчислень. Об'єкт класу {@linkplain Item2d} */
+    /** Зберігає результат визначення оператора. Об'єкт класу {@linkplain Item2d} */
     private Item2d result;
     
     /** Ініціалізує {@linkplain Calc#result} */
@@ -44,25 +45,32 @@ public class Calc {
     }
 
     /** 
-     * Обчислює значення функції.
-     * @param x - аргумент обчислюваної функції.
-     * @return результат обчислення функції.
+     * Визначає мобільного оператора за номером телефону.
+     * @param phoneNumber - номер телефону абонента.
+     * @return назва мобільного оператора.
      */
-    private double calc(double x) {
-        return Math.sin(x * Math.PI / 180); // Перетворення градусів в радіани
+    private String determineOperator(String phoneNumber) {
+        if (phoneNumber.matches("^\\+?380(50|66|95|99)\\d{7}$")) {
+            return "Vodafone";
+        } else if (phoneNumber.matches("^\\+?380(67|68|96|97|98)\\d{7}$")) {
+            return "Kyivstar";
+        } else if (phoneNumber.matches("^\\+?380(63|73|93)\\d{7}$")) {
+            return "Lifecell";
+        } else {
+            return "I don't know";
+        }
     }
 
     /** 
-     * Обчислює значення функції та зберігає
-     * результат в об'єкті {@linkplain Calc#result}
-     * @param x - аргумент обчислюваної функції.
+     * Визначає мобільного оператора та зберігає результат в об'єкті {@linkplain Calc#result}
+     * @param phoneNumber - номер телефону абонента.
      */
-    public double init(double x) {
-        result.setX(x);
-        return result.setY(calc(x));
+    public String init(String phoneNumber) {
+        result.setPhoneNumber(phoneNumber);
+        return result.setOperator(determineOperator(phoneNumber));
     }
 
-    /** Виводить результат обчислень. */
+    /** Виводить результат визначення оператора. */
     public void show() {
         System.out.println(result);
     }

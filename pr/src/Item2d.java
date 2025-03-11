@@ -13,105 +13,70 @@ import java.io.Serializable;
  */
 public class Item2d implements Serializable {
     
-    /** Аргумент обчислюваної функції. */
-    // transient
-    private double x;
+    /** Номер телефону абонента. */
+    private String phoneNumber;
     
-    /** Результат обчислення функції. */
-    private double y;
+    /** Назва мобільного оператора. */
+    private String operator;
 
     /** Автоматично згенерована константа */
     private static final long serialVersionUID = 1L;
 
-    /** Ініціалізує поля {@linkplain Item2d#x}, {@linkplain Item2d#y} */
+    /** Ініціалізує поля {@linkplain Item2d#phoneNumber}, {@linkplain Item2d#operator} */
     public Item2d() {
-        x = .0;
-        y = .0;
+        phoneNumber = "";
+        operator = "";
     }
 
     /** 
-     * Встановлює значення полів: аргумент
-     * та результат обчислення функції.
-     * @param x - значення для ініціалізації поля {@linkplain Item2d#x}
-     * @param y - значення для ініціалізації поля {@linkplain Item2d#y}
+     * Встановлює значення полів: номер телефону та оператор.
+     * @param phoneNumber - значення для {@linkplain Item2d#phoneNumber}
+     * @param operator - значення для {@linkplain Item2d#operator}
      */
-    public Item2d(double x, double y) {
-        this.x = x;
-        this.y = y;
+    public Item2d(String phoneNumber, String operator) {
+        this.phoneNumber = phoneNumber;
+        this.operator = operator;
     }
 
     /** 
-     * Встановлення значення поля {@linkplain Item2d#x}
-     * @param x - значення для {@linkplain Item2d#x}
-     * @return Значення {@linkplain Item2d#x}
+     * Встановлення значення поля {@linkplain Item2d#phoneNumber}
+     * @param phoneNumber - значення для {@linkplain Item2d#phoneNumber}
+     * @return Значення {@linkplain Item2d#phoneNumber}
      */
-    public double setX(double x) {
-        return this.x = x;
+    public String setPhoneNumber(String phoneNumber) {
+        return this.phoneNumber = phoneNumber;
     }
 
     /** 
-     * Отримання значення поля {@linkplain Item2d#x}
-     * @return Значення {@linkplain Item2d#x}
+     * Отримання значення поля {@linkplain Item2d#phoneNumber}
+     * @return Значення {@linkplain Item2d#phoneNumber}
      */
-    public double getX() {
-        return x;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
     /** 
-     * Встановлення значення поля {@linkplain Item2d#y}
-     * @param y - значення для {@linkplain Item2d#y}
-     * @return Значення {@linkplain Item2d#y}
+     * Встановлення значення поля {@linkplain Item2d#operator}
+     * @param operator - значення для {@linkplain Item2d#operator}
+     * @return Значення {@linkplain Item2d#operator}
      */
-    public double setY(double y) {
-        return this.y = y;
+    public String setOperator(String operator) {
+        return this.operator = operator;
     }
 
     /** 
-     * Отримання значення поля {@linkplain Item2d#y}
-     * @return значення {@linkplain Item2d#y}
+     * Отримання значення поля {@linkplain Item2d#operator}
+     * @return значення {@linkplain Item2d#operator}
      */
-    public double getY() {
-        return y;
+    public String getOperator() {
+        return operator;
     }
 
     /** 
-     * Встановлення значень {@linkplain Item2d#x} та {@linkplain Item2d#y}
-     * @param x - значення для {@linkplain Item2d#x}
-     * @param y - значення для {@linkplain Item2d#y}
-     * @return this
-     */
-    public Item2d setXY(double x, double y) {
-        this.x = x;
-        this.y = y;
-        return this;
-    }
-
-    /** 
-     * Представляє результат обчислень у вигляді рядка.<br>{@inheritDoc} 
+     * Представляє результат у вигляді рядка.<br>{@inheritDoc} 
      */
     @Override
     public String toString() {
-        return "x = " + x + ", y = " + y;
-    }
-
-    /** 
-     * Автоматично згенерований метод.<br>{@inheritDoc} 
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-
-        Item2d other = (Item2d) obj;
-        if (Double.doubleToLongBits(x) != Double.doubleToLongBits(other.x))
-            return false;
-        // змінено порівняння результату обчислення функції
-        if (Math.abs(Math.abs(y) - Math.abs(other.y)) > .1e-10)
-            return false;
-        return true;
+        return "Num: " + phoneNumber + ", operator: " + operator;
     }
 }
