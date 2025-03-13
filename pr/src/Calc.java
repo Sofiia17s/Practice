@@ -3,12 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-
-import java.io.IOException;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -16,32 +13,30 @@ import java.io.ObjectOutputStream;
  * @author Cinderella
  * @version 1.0
  */
+
+
 public class Calc {
     /** Ім'я файлу, що використовується при серіалізації. */
-    private static final String FNAME = "Item2d.bin";
-    
-    /** Зберігає результат визначення оператора. Об'єкт класу {@linkplain Item2d} */
-    private Item2d result;
-    
-    /** Ініціалізує {@linkplain Calc#result} */
+    private static final String FNAME = "Item2dList.bin";
+
+    /** Колекція результатів визначення оператора. */
+    private List<Displayable> results;
+
+    /** Фабрика для створення об'єктів Account. */
+    private AccountFactory accountFactory;
+
+    /** Ініціалізує колекцію {@linkplain Calc#results} та фабрику {@linkplain Calc#accountFactory}. */
     public Calc() {
-        result = new Item2d();
+        results = new ArrayList<>();
+        accountFactory = new AccountFactoryImpl();
     }
 
     /** 
-     * Встановити значення {@linkplain Calc#result}
-     * @param result - нове значення посилання на об'єкт {@linkplain Item2d}
+     * Отримати список результатів.
+     * @return колекція об'єктів {@linkplain Displayable}
      */
-    public void setResult(Item2d result) {
-        this.result = result;
-    }
-
-    /** 
-     * Отримати значення {@linkplain Calc#result}
-     * @return поточне значення посилання на об'єкт {@linkplain Item2d}
-     */
-    public Item2d getResult() {
-        return result;
+    public List<Displayable> getResults() {
+        return results;
     }
 
     /** 
@@ -57,42 +52,48 @@ public class Calc {
         } else if (phoneNumber.matches("^\\+?380(63|73|93)\\d{7}$")) {
             return "Lifecell";
         } else {
-            return "I don't know";
+            return "Unknow operator";
         }
     }
 
     /** 
-     * Визначає мобільного оператора та зберігає результат в об'єкті {@linkplain Calc#result}
+     * Визначає мобільного оператора та додає результат до колекції.
      * @param phoneNumber - номер телефону абонента.
      */
-    public String init(String phoneNumber) {
-        result.setPhoneNumber(phoneNumber);
-        return result.setOperator(determineOperator(phoneNumber));
+    public void init(String phoneNumber) {
+        String operator = determineOperator(phoneNumber);
+        results.add(new Item2d(operator));
     }
 
-    /** Виводить результат визначення оператора. */
+    /** Виводить всі збережені результати визначення оператора. */
     public void show() {
-        System.out.println(result);
+        if (results.isEmpty()) {
+            System.out.println("Nothing.");
+        } else {
+            for (Displayable item : results) {
+                item.showInfo();
+            }
+        }
     }
 
     /** 
-     * Зберігає {@linkplain Calc#result} в файл {@linkplain Calc#FNAME}
+     * Зберігає колекцію {@linkplain Calc#results} у файл {@linkplain Calc#FNAME}.
      * @throws IOException
      */
     public void save() throws IOException {
         ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(FNAME));
-        os.writeObject(result);
+        os.writeObject(results);
         os.flush();
         os.close();
     }
 
     /** 
-     * Відновлює {@linkplain Calc#result} з файлу {@linkplain Calc#FNAME}
+     * Відновлює колекцію {@linkplain Calc#results} з файлу {@linkplain Calc#FNAME}.
      * @throws Exception
      */
     public void restore() throws Exception {
         ObjectInputStream is = new ObjectInputStream(new FileInputStream(FNAME));
-        result = (Item2d) is.readObject();
+        results = (List<Displayable>) is.readObject();
         is.close();
     }
 }

@@ -11,72 +11,54 @@ import java.io.Serializable;
  * @author Cinderella
  * @version 1.0
  */
-public class Item2d implements Serializable {
-    
-    /** Номер телефону абонента. */
-    private String phoneNumber;
-    
-    /** Назва мобільного оператора. */
-    private String operator;
 
-    /** Автоматично згенерована константа */
+public class Item2d implements Displayable, Serializable {
     private static final long serialVersionUID = 1L;
 
-    /** Ініціалізує поля {@linkplain Item2d#phoneNumber}, {@linkplain Item2d#operator} */
+    /** Назва мобільного оператора */
+    private String operator;
+
+    /** 
+     * Конструктор за замовчуванням.
+     */
     public Item2d() {
-        phoneNumber = "";
-        operator = "";
+        this.operator = "Unknow operator";
     }
 
     /** 
-     * Встановлює значення полів: номер телефону та оператор.
-     * @param phoneNumber - значення для {@linkplain Item2d#phoneNumber}
-     * @param operator - значення для {@linkplain Item2d#operator}
+     * Конструктор з параметром.
+     * @param operator - назва мобільного оператора
      */
-    public Item2d(String phoneNumber, String operator) {
-        this.phoneNumber = phoneNumber;
+    public Item2d(String operator) {
         this.operator = operator;
     }
 
     /** 
-     * Встановлення значення поля {@linkplain Item2d#phoneNumber}
-     * @param phoneNumber - значення для {@linkplain Item2d#phoneNumber}
-     * @return Значення {@linkplain Item2d#phoneNumber}
-     */
-    public String setPhoneNumber(String phoneNumber) {
-        return this.phoneNumber = phoneNumber;
-    }
-
-    /** 
-     * Отримання значення поля {@linkplain Item2d#phoneNumber}
-     * @return Значення {@linkplain Item2d#phoneNumber}
-     */
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    /** 
-     * Встановлення значення поля {@linkplain Item2d#operator}
-     * @param operator - значення для {@linkplain Item2d#operator}
-     * @return Значення {@linkplain Item2d#operator}
-     */
-    public String setOperator(String operator) {
-        return this.operator = operator;
-    }
-
-    /** 
-     * Отримання значення поля {@linkplain Item2d#operator}
-     * @return значення {@linkplain Item2d#operator}
+     * Отримати назву оператора.
+     * @return оператор
      */
     public String getOperator() {
         return operator;
     }
 
     /** 
-     * Представляє результат у вигляді рядка.<br>{@inheritDoc} 
+     * Встановити назву оператора.
+     * @param operator - нова назва оператора
+     */
+    public void setOperator(String operator) {
+        this.operator = operator;
+    }
+
+    /** 
+     * Відображає інформацію про мобільного оператора.
      */
     @Override
+    public void showInfo() {
+        System.out.println("Operator: " + operator);
+    }
+
+    @Override
     public String toString() {
-        return "Num: " + phoneNumber + ", operator: " + operator;
+        return "Item2d{operator='" + operator + "'}";
     }
 }
